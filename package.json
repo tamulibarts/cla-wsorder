@@ -1,0 +1,55 @@
+{
+  "name": "cla-wsorder",
+  "version": "0.1.0",
+  "description": "Genesis child theme for the College of Liberal Arts Workstation Ordering Application",
+  "main": "functions.php",
+  "scripts": {
+    "start": "composer install && npm install && grunt",
+    "checkwp": "npm run configphpcs && npm run checkphp",
+    "configphpcs": "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+    "checkphp": "vendor/bin/phpcs --standard=WordPress ./*.php ./src ./fields",
+    "fixphp": "vendor/bin/phpcbf --standard=WordPress ./*.php ./src ./fields"
+  },
+  "author": "Zachary Watkins",
+  "license": "GPL-2.0+",
+  "bugs": {
+    "url": "https://github.tamu.edu/liberalarts-web/cla-wsorder/issues",
+    "email": "zwatkins2@tamu.edu"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.2.1",
+    "cssnano": "^4.1.10",
+    "foundation-sites": "^6.4.3",
+    "grunt": "^1.0.3",
+    "grunt-contrib-coffee": "^2.0.0",
+    "grunt-contrib-compress": "^1.4.3",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-merge-media": "^0.4.0",
+    "grunt-postcss": "^0.9.0",
+    "grunt-sass": "^3.0.2",
+    "grunt-sass-lint": "^0.2.4",
+    "jquery": "^3.3.1",
+    "node-sass": "^4.12.0",
+    "underscore": "^1.9.1",
+    "what-input": "^5.1.2"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.tamu.edu/liberalarts-web/cla-wsorder.git"
+  },
+  "homepage": "https://github.tamu.edu/liberalarts-web/cla-wsorder#readme",
+  "org_clait": {
+    "themename": "CLA Workstation Ordering Application",
+    "authoruri": "https://liberalarts.tamu.edu/",
+    "licenseuri": "http://www.gnu.org/licenses/gpl-2.0.html",
+    "template": "genesis"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie > 9"
+  ]
+}
