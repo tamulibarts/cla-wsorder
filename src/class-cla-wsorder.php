@@ -38,10 +38,14 @@ class CLA_WSOrder {
 	 */
 	private function __construct() {
 
-		add_theme_support( 'html5', array() );
+		unregister_sidebar( 'sidebar' );
+		unregister_sidebar( 'sidebar-alt' );
+		unregister_sidebar( 'header-right' );
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
 
 		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
+		// Foundation class names and other attributes.
 		@include CLA_THEME_DIRPATH . '/src/class-foundation.php';
 		$foundation = new \CLA_WSOrder\Foundation();
 
@@ -52,6 +56,35 @@ class CLA_WSOrder {
 		// Header changes
 		@include CLA_THEME_DIRPATH . '/src/class-header.php';
 		$nav = new \CLA_WSOrder\Header();
+
+		// removes the `profile.php` admin color scheme options
+		remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
+
+		if ( ! function_exists( 'cla_remove_unneeded_account_options' ) ) {
+		  /**
+		   * Removes the leftover 'Visual Editor', 'Keyboard Shortcuts' and 'Toolbar' options.
+		   */
+		  function cla_remove_unneeded_account_options( $subject ) {
+		    $subject = preg_replace( '#<h2>Personal Options</h2>.+?/table>#s', '', $subject, 1 );
+		    $subject = preg_replace( '#<h2>About Yourself</h2>.+?/table>#s', '', $subject, 1 );
+		    $subject = preg_replace( '#<h2>Author Archive Settings</h2>.+?/table>#s', '', $subject, 1 );
+		    $subject = preg_replace( '#<h2>Author Archive SEO Settings</h2>.+?/table>#s', '', $subject, 1 );
+		    $subject = preg_replace( '#<h2>Layout Settings</h2>.+?/table>#s', '', $subject, 1 );
+		    $subject = preg_replace( '#<h2>User Permissions</h2>.+?/table>#s', '', $subject, 1 );
+		    $subject = preg_replace( '#<h2>Account Management</h2>.+?/table>#s', '', $subject, 1 );
+		    return $subject;
+		  }
+
+		  function cla_profile_subject_start() {
+		    ob_start( 'cla_remove_unneeded_account_options' );
+		  }
+
+		  function cla_profile_subject_end() {
+		    ob_end_flush();
+		  }
+		}
+		add_action( 'admin_head-profile.php', 'cla_profile_subject_start' );
+		add_action( 'admin_footer-profile.php', 'cla_profile_subject_end' );
 
 	}
 
@@ -75,6 +108,7 @@ class CLA_WSOrder {
 		add_theme_support( 'responsive-embeds' );
 		add_theme_support( 'custom-logo', $defaults );
 		add_theme_support( 'genesis-custom-logo', $defaults );
+		add_theme_support( 'html5', array() );
 
 	}
 

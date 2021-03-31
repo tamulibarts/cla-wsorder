@@ -15,11 +15,11 @@ class Foundation {
 			return $title;
 		}, 10, 3 );
 		add_filter( 'get_custom_logo', function ( $output ) {
-			$output = '<div class="cell shrink">' . $output . '</div>';
+			$output = '<div class="cell small-6 medium-4 text-left">' . $output . '</div>';
 			return $output;
 		} );
 		add_filter( 'genesis_markup_title-area_open', function( $open_html, $args ) {
-			$open_html = str_replace( 'title-area', 'title-area grid-x row', $open_html );
+			$open_html = str_replace( 'title-area', 'title-area grid-x align-middle row', $open_html );
 			return $open_html;
 		}, 10, 2 );
 	}

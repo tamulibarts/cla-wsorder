@@ -14,7 +14,7 @@ class Header {
 			add_filter( 'genesis_seo_title', function ( $title, $inside, $wrap ) {
 				$profile_url = get_edit_profile_url();
 				$logout_url = wp_logout_url();
-				$admin_links = "<div class=\"cell shrink\">My Orders | <a href=\"$profile_url\">My Account</a> | <a href=\"$logout_url\">Logout</a></div>";
+				$admin_links = "<div class=\"cell small-12 medium-4 text-right\"><a href=\"/my-orders/\">My Orders</a> | <a href=\"$profile_url\">My Account</a> | <a href=\"$logout_url\">Logout</a></div>";
 				$title .= $admin_links;
 				return $title;
 			}, 10, 3 );

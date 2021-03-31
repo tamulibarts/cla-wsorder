@@ -1,10 +1,4 @@
 @import "themecomment";
-
-
-
-
-
-
 @import "foundation";
 @import "settings";
 
@@ -67,6 +61,9 @@
 // @include foundation-flex-classes;
 
 // @include foundation-prototype-classes;
+
+@import "all";
+@import "layout";
 
 .top-bar {
 	font-weight: 500;
