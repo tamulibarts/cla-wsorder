@@ -47,3 +47,4 @@ node_modules
 .sass-cache
 vendor
 *.zip
+*.css.map
