@@ -49,20 +49,9 @@ class CLA_WSOrder {
 		@include CLA_THEME_DIRPATH . '/src/class-navigation.php';
 		$nav = new \CLA_WSOrder\Navigation();
 
-		add_filter( 'genesis_seo_title', function ( $title, $inside, $wrap ) {
-			$title = '<div class="cell auto">' . $title . '</div>';
-			$admin_links = '<div class="cell shrink">My Orders | My Account | Logout</div>';
-			$title .= $admin_links;
-			return $title;
-		}, 10, 3 );
-		add_filter( 'get_custom_logo', function ( $output ) {
-			$output = '<div class="cell shrink">' . $output . '</div>';
-			return $output;
-		} );
-		add_filter( 'genesis_markup_title-area_open', function( $open_html, $args ) {
-			$open_html = str_replace( 'title-area', 'title-area grid-x row', $open_html );
-			return $open_html;
-		}, 10, 2 );
+		// Header changes
+		@include CLA_THEME_DIRPATH . '/src/class-header.php';
+		$nav = new \CLA_WSOrder\Header();
 
 	}
 
