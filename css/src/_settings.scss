@@ -54,4 +54,12 @@ $header-styles: (
     'h6': ('font-size': 16),
   ),
 );
+$header-font-family: $body-font-family;
 $header-font-weight: 500;
+$header-lineheight: 1.2;
+$defnlist-term-weight: 700;
+$defnlist-term-margin-bottom: 0;
+
+$form-spacing: 0;
+$form-label-line-height: $global-lineheight;
+$form-label-font-size: $global-font-size;

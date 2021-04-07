@@ -38,26 +38,21 @@ class CLA_WSOrder {
 	 */
 	private function __construct() {
 
-		unregister_sidebar( 'sidebar' );
-		unregister_sidebar( 'sidebar-alt' );
-		unregister_sidebar( 'header-right' );
-		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
-
 		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
 		// Foundation class names and other attributes.
 		@include CLA_THEME_DIRPATH . '/src/class-foundation.php';
 		$foundation = new \CLA_WSOrder\Foundation();
 
-		// Navigation menu changes
+		// Navigation menu.
 		@include CLA_THEME_DIRPATH . '/src/class-navigation.php';
 		$nav = new \CLA_WSOrder\Navigation();
 
-		// Header changes
+		// Header.
 		@include CLA_THEME_DIRPATH . '/src/class-header.php';
 		$nav = new \CLA_WSOrder\Header();
 
-		// removes the `profile.php` admin color scheme options
+		// Remove profile options.
 		remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
 
 		if ( ! function_exists( 'cla_remove_unneeded_account_options' ) ) {
@@ -86,6 +81,17 @@ class CLA_WSOrder {
 		add_action( 'admin_head-profile.php', 'cla_profile_subject_start' );
 		add_action( 'admin_footer-profile.php', 'cla_profile_subject_end' );
 
+		// Home page heading as current program name.
+		add_filter( 'the_title', function( $title, $post_id ){
+			$front_page_id = (int) get_option( 'page_on_front' );
+			if ( ! empty( $front_page_id ) && $front_page_id === $post_id ) {
+				$current_program_post  = get_field( 'current_program', 'option' );
+				$current_program_title = $current_program_post->post_title;
+				$title = $current_program_title;
+			}
+			return $title;
+		}, 10, 2 );
+
 	}
 
 	/**
@@ -96,6 +102,7 @@ class CLA_WSOrder {
 	 */
 	public function after_setup_theme() {
 
+		// Add theme support.
 		$defaults = array(
       'height'      => 279,
       'width'       => 50,
@@ -103,12 +110,17 @@ class CLA_WSOrder {
 			'flex-width'  => true,
 			// 'header-text' => array( 'site-title', 'site-description' ),
 		);
-
 		add_theme_support( 'align-wide' );
 		add_theme_support( 'responsive-embeds' );
 		add_theme_support( 'custom-logo', $defaults );
 		add_theme_support( 'genesis-custom-logo', $defaults );
 		add_theme_support( 'html5', array() );
+
+		// Remove sidebars.
+		unregister_sidebar( 'sidebar' );
+		unregister_sidebar( 'sidebar-alt' );
+		unregister_sidebar( 'header-right' );
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
 
 	}
 

@@ -1,0 +1,8 @@
+.home .entry {
+	background-color: #E9ECEF;
+	padding: 2rem 1rem;
+
+	@include breakpoint(medium) {
+		padding: 4rem 2rem;
+	}
+}

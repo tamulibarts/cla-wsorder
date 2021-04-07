@@ -643,7 +643,7 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-style: normal;
   font-weight: 500;
   color: inherit;
@@ -669,7 +669,7 @@ h6 small,
 h1,
 .h1 {
   font-size: 1.5rem;
-  line-height: 1.4;
+  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -677,7 +677,7 @@ h1,
 h2,
 .h2 {
   font-size: 1.25rem;
-  line-height: 1.4;
+  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -685,7 +685,7 @@ h2,
 h3,
 .h3 {
   font-size: 1.1875rem;
-  line-height: 1.4;
+  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -693,7 +693,7 @@ h3,
 h4,
 .h4 {
   font-size: 1.125rem;
-  line-height: 1.4;
+  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -701,7 +701,7 @@ h4,
 h5,
 .h5 {
   font-size: 1.0625rem;
-  line-height: 1.4;
+  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -709,7 +709,7 @@ h5,
 h6,
 .h6 {
   font-size: 1rem;
-  line-height: 1.4;
+  line-height: 1.2;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -775,8 +775,8 @@ dl {
 }
 
 dl dt {
-  margin-bottom: 0.3rem;
-  font-weight: bold;
+  margin-bottom: 0;
+  font-weight: 700;
 }
 
 blockquote {
@@ -1337,7 +1337,7 @@ textarea {
   box-sizing: border-box;
   width: 100%;
   height: 2.4375rem;
-  margin: 0 0 1rem;
+  margin: 0 0 0;
   padding: 0.5rem;
   border: 1px solid #cacaca;
   border-radius: 0;
@@ -1407,15 +1407,15 @@ input[type='search'] {
 [type='file'],
 [type='checkbox'],
 [type='radio'] {
-  margin: 0 0 1rem;
+  margin: 0 0 0;
 }
 
 [type='checkbox'] + label,
 [type='radio'] + label {
   display: inline-block;
   vertical-align: baseline;
-  margin-left: 0.5rem;
-  margin-right: 1rem;
+  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 0;
 }
 
@@ -1426,7 +1426,7 @@ input[type='search'] {
 
 label > [type='checkbox'],
 label > [type='radio'] {
-  margin-right: 0.5rem;
+  margin-right: 0;
 }
 
 [type='file'] {
@@ -1436,15 +1436,15 @@ label > [type='radio'] {
 label {
   display: block;
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 100%;
   font-weight: normal;
-  line-height: 1.8;
+  line-height: 1.5;
   color: #0a0a0a;
 }
 
 label.middle {
-  margin: 0 0 1rem;
-  padding: 0.5625rem 0;
+  margin: 0 0 0;
+  padding: 0.0625rem 0;
 }
 
 fieldset {
@@ -1455,7 +1455,7 @@ fieldset {
 
 legend {
   max-width: 100%;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 .fieldset {
@@ -1472,7 +1472,7 @@ legend {
 
 select {
   height: 2.4375rem;
-  margin: 0 0 1rem;
+  margin: 0 0 0;
   padding: 0.5rem;
   appearance: none;
   border: 1px solid #cacaca;
@@ -1485,10 +1485,10 @@ select {
   color: #0a0a0a;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='32' height='24' viewBox='0 0 32 24'><polygon points='0,0 32,0 16,24' style='fill: rgb%28138, 138, 138%29'></polygon></svg>");
   background-origin: content-box;
-  background-position: right -1rem center;
+  background-position: right 0 center;
   background-repeat: no-repeat;
   background-size: 9px 6px;
-  padding-right: 1.5rem;
+  padding-right: 0;
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
 }
 
@@ -1836,6 +1836,10 @@ th {
   border-bottom-width: 2px;
 }
 
+small {
+  font-weight: 400;
+}
+
 .site-header .title-area {
   padding: 1rem;
   align-items: center;
@@ -1847,6 +1851,11 @@ th {
 
 .site-inner {
   padding: 1.5rem 1.5rem 0;
+}
+
+.home .entry {
+  background-color: #E9ECEF;
+  padding: 2rem 1rem;
 }
 
 .top-bar {
@@ -2368,6 +2377,10 @@ th {
 
   .hide-for-medium {
     display: none !important;
+  }
+
+  .home .entry {
+    padding: 4rem 2rem;
   }
 }
 
