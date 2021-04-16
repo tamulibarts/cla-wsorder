@@ -82,16 +82,22 @@ class CLA_WSOrder {
 		add_action( 'admin_footer-profile.php', 'cla_profile_subject_end' );
 
 		// Home page heading as current program name.
-		add_filter( 'the_title', function( $title, $post_id ){
+		add_filter( 'the_title', array ( $this, 'home_title_current_program' ), 10, 2 );
+
+	}
+
+	public function home_title_current_program( $title, $post_id ) {
+		if ( ! is_admin() ) {
 			$front_page_id = (int) get_option( 'page_on_front' );
 			if ( ! empty( $front_page_id ) && $front_page_id === $post_id ) {
 				$current_program_post  = get_field( 'current_program', 'option' );
-				$current_program_title = $current_program_post->post_title;
-				$title = $current_program_title;
+				if ( $current_program_post ) {
+					$current_program_title = $current_program_post->post_title;
+					$title = $current_program_title;
+				}
 			}
-			return $title;
-		}, 10, 2 );
-
+		}
+		return $title;
 	}
 
 	/**
