@@ -1849,8 +1849,9 @@ small {
   margin-bottom: 0;
 }
 
-.site-inner {
-  padding: 1.5rem 1.5rem 0;
+.site-inner,
+.site-footer {
+  padding: 1.5rem;
 }
 
 .home .entry {
