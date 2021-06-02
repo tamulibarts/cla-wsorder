@@ -66,6 +66,15 @@
 @import "layout";
 @import "home";
 
+body {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: left;
+	background-color: #FFF;
+}
+
 .top-bar {
 	font-weight: 500;
 
@@ -85,17 +94,37 @@
 	.menu-primary > li.brand {
 		padding: 0.3125rem 0;
 		margin-right: 1rem;
-		line-height: 1;
+		line-height: 30px;
 		color: $white;
 		font-size: 1.25rem;
 	}
 }
 
 .site-header {
+	background-color: #F8F9FA;
 	text-align: center;
 
 	.custom-logo-link img {
 		height: rem-calc(50);
 		width: rem-calc(279);
 	}
+}
+
+.site-title {
+	font-size: rem-calc(20);
+
+	a {
+		color: #000;
+	}
+}
+
+.account-links a {
+	display: inline-block;
+	padding: rem-calc(8);
+	color: #666;
+}
+
+.menu a,
+.menu .button {
+	line-height: 1.5;
 }

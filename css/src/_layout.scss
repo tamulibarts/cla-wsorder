@@ -1,6 +1,6 @@
 .site-header {
 	.title-area {
-		padding: 1rem;
+		padding: rem-calc(13) 1rem;
 		align-items: center;
 	}
 
@@ -11,5 +11,5 @@
 
 .site-inner,
 .site-footer {
-	padding: 1.5rem;
+	padding: 1rem;
 }

@@ -46,7 +46,7 @@ $header-styles: (
     'h6': ('font-size': 16),
   ),
   medium: (
-    'h1': ('font-size': 40),
+    'h1': ('font-size': 32),
     'h2': ('font-size': 32),
     'h3': ('font-size': 28),
     'h4': ('font-size': 25),
@@ -63,3 +63,7 @@ $defnlist-term-margin-bottom: 0;
 $form-spacing: 0;
 $form-label-line-height: $global-lineheight;
 $form-label-font-size: $global-font-size;
+
+/* Body elements
+--------------------------------------------- */
+$list-lineheight: 1.5;

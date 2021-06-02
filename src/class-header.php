@@ -22,7 +22,7 @@ class Header {
 	}
 
 	public function wrap_logo ( $output ) {
-		$output = '<div class="cell small-6 medium-4 text-left">' . $output . '</div>';
+		$output = '<div class="cell small-6 medium-shrink text-left">' . $output . '</div>';
 		return $output;
 	}
 
@@ -33,9 +33,10 @@ class Header {
 	}
 
 	public function add_header_links ( $title, $inside, $wrap ) {
-		$profile_url = get_edit_profile_url();
 		$logout_url = wp_logout_url();
-		$admin_links = "<div class=\"cell small-12 medium-4 text-right\"><a href=\"/my-orders/\">My Orders</a> | <a href=\"$profile_url\">My Account</a> | <a href=\"$logout_url\">Logout</a></div>";
+		$user = wp_get_current_user();
+		$user_name = $user->user_login;
+		$admin_links = "<div class=\"account-links cell small-12 medium-shrink text-right\"><a href=\"/my-orders/\">My Orders</a><a href=\"/my-account/\">My Account</a><a href=\"$logout_url\">Logout ({$user_name})</a></div>";
 		$title .= $admin_links;
 		return $title;
 	}
