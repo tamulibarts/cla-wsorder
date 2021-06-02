@@ -84,6 +84,17 @@ class CLA_WSOrder {
 		// Home page heading as current program name.
 		add_filter( 'the_title', array ( $this, 'home_title_current_program' ), 10, 2 );
 
+		// Disable the admin bar.
+		add_action('after_setup_theme', array( $this, 'admin_bar_enable_or_disable' ) );
+
+	}
+
+	public function admin_bar_enable_or_disable() {
+		if (!current_user_can('administrator') && !current_user_can('wso_admin') && !current_user_can('wso_logistics') && !is_admin()) {
+		  show_admin_bar(false);
+		} else {
+			show_admin_bar(true);
+		}
 	}
 
 	public function home_title_current_program( $title, $post_id ) {
