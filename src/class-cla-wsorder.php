@@ -86,8 +86,23 @@ class CLA_WSOrder {
 
 		// Disable the admin bar.
 		add_action('after_setup_theme', array( $this, 'admin_bar_enable_or_disable' ) );
+
+		// Add custom user switch back link.
 		add_action('genesis_after_header', array( $this, 'add_user_switch_back_link' ) );
 
+		// Add footer horizontal line.
+		add_action( 'genesis_footer', array( $this, 'genesis_footer_content' ), 5 );
+		add_filter( 'genesis_attr_site-footer', array( $this, 'genesis_footer_att' ) );
+
+	}
+
+	public function genesis_footer_content() {
+		echo '<hr />';
+	}
+
+	public function genesis_footer_att( $attr ) {
+		$attr['class'] .= ' container';
+		return $attr;
 	}
 
 	public function add_user_switch_back_link(){
