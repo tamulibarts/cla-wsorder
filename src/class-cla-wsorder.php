@@ -105,7 +105,7 @@ class CLA_WSOrder {
 	    	echo wp_kses_post( "<div class=\"alert alert-info\">Impersonating: $display_name. <a href=\"{$back_url}&redirect_to={$redirect}\">Back to $back_name</a></div>" );
 	    }
 		}
-	});
+	}
 
 	public function admin_bar_enable_or_disable() {
 		if (!current_user_can('administrator') && !current_user_can('wso_admin') && !current_user_can('wso_logistics') && !is_admin()) {
