@@ -86,8 +86,26 @@ class CLA_WSOrder {
 
 		// Disable the admin bar.
 		add_action('after_setup_theme', array( $this, 'admin_bar_enable_or_disable' ) );
+		add_action('genesis_after_header', array( $this, 'add_user_switch_back_link' ) );
 
 	}
+
+	public function add_user_switch_back_link(){
+		if ( method_exists( 'user_switching', 'get_old_user' ) ) {
+	    $old_user = user_switching::get_old_user();
+	    if ( $old_user ) {
+	    	$current_user = wp_get_current_user();
+	    	$display_name = $current_user->display_name;
+	    	$back_url     = esc_url( user_switching::switch_back_url( $old_user ) );
+				$uri          = $_SERVER['REQUEST_URI'];
+				$protocol     = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? "https://" : "http://";
+				$redirect     = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?user_switched=true';
+				$redirect     = urlencode( $redirect );
+	    	$back_name    = esc_html( $old_user->display_name );
+	    	echo wp_kses_post( "<div class=\"alert alert-info\">Impersonating: $display_name. <a href=\"{$back_url}&redirect_to={$redirect}\">Back to $back_name</a></div>" );
+	    }
+		}
+	});
 
 	public function admin_bar_enable_or_disable() {
 		if (!current_user_can('administrator') && !current_user_can('wso_admin') && !current_user_can('wso_logistics') && !is_admin()) {

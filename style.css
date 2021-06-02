@@ -1925,6 +1925,20 @@ body {
   line-height: 1.5;
 }
 
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-info {
+  color: #0C5460;
+  background-color: #D1ECF1;
+  border-color: #BEE5EB;
+}
+
 /*# sourceMappingURL=style.css.map */
 
 @media print, screen and (min-width: 40em) {
@@ -2332,7 +2346,7 @@ body {
 
   h1,
   .h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   h2,
