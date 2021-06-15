@@ -33,11 +33,16 @@ class Header {
 	}
 
 	public function add_header_links ( $title, $inside, $wrap ) {
-		$logout_url = wp_logout_url();
-		$user = wp_get_current_user();
-		$user_name = $user->user_login;
-		$admin_links = "<div class=\"account-links cell small-12 medium-shrink text-right\"><a href=\"/my-orders/\">My Orders</a><a href=\"/my-account/\">My Account</a><a href=\"$logout_url\">Logout ({$user_name})</a></div>";
-		$title .= $admin_links;
+		if ( is_user_logged_in() ) {
+			$logout_url = wp_logout_url();
+			$user = wp_get_current_user();
+			$user_name = $user->user_login;
+			$admin_links = "<div class=\"account-links cell small-12 medium-shrink text-right\"><a href=\"/my-orders/\">My Orders</a><a href=\"/my-account/\">My Account</a><a href=\"$logout_url\">Logout ({$user_name})</a></div>";
+			$title .= $admin_links;
+		} else {
+			$login_url = wp_login_url();
+			$title .= "<div class=\"account-links cell small-12 medium-shrink text-right\"><a href=\"$login_url\">Login</a></div>";
+		}
 		return $title;
 	}
 }
