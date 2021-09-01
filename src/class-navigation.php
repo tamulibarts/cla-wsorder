@@ -8,6 +8,7 @@ class Navigation {
 		if (
 			current_user_can( 'wso_it_rep' )
 			|| current_user_can( 'wso_business_admin' )
+			|| current_user_can( 'wso_logistics_admin' )
 			|| current_user_can( 'wso_logistics' )
 			|| current_user_can( 'wso_admin' )
 		) {
@@ -35,7 +36,7 @@ class Navigation {
 			$current_program_id = get_site_option( 'options_current_program' );
 			$orders_url         = admin_url( "edit.php?post_type=wsorder&program=$current_program_id" );
 			$output             = "<li class=\"brand\">Administrative Functions</li><li><a href=\"/orders/\">Orders</a></li>";
-			if ( current_user_can( 'wso_admin' ) || current_user_can( 'wso_logistics' ) ) {
+			if ( current_user_can( 'wso_admin' ) || current_user_can( 'wso_logistics' ) || current_user_can( 'wso_logistics_admin' ) ) {
 				$bundles_url     = admin_url( 'edit.php?post_type=bundle' );
 				$categories_url  = admin_url( 'edit-tags.php?taxonomy=product-category' );
 				$products_url    = admin_url( 'edit.php?post_type=product' );
@@ -66,7 +67,7 @@ class Navigation {
 			$current_program_id = get_site_option( 'options_current_program' );
 			$orders_url         = admin_url( "edit.php?post_type=wsorder&program=$current_program_id" );
 			$output             = "<li class=\"brand\">Administrative Functions</li><li><a href=\"/orders/\">Orders</a></li>";
-			if ( current_user_can( 'wso_admin' ) || current_user_can( 'wso_logistics' ) ) {
+			if ( current_user_can( 'wso_admin' ) || current_user_can( 'wso_logistics' ) || current_user_can( 'wso_logistics_admin' ) ) {
 				$bundles_url     = admin_url( 'edit.php?post_type=bundle' );
 				$categories_url  = admin_url( 'edit-tags.php?taxonomy=product-category' );
 				$products_url    = admin_url( 'edit.php?post_type=product' );
