@@ -41,18 +41,18 @@ class CLA_WSOrder {
 		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
 
 		// Foundation class names and other attributes.
-		@include CLA_THEME_DIRPATH . '/src/class-foundation.php';
+		include CLA_THEME_DIRPATH . '/src/class-foundation.php';
 		$foundation = new \CLA_WSOrder\Foundation();
 
 		// Navigation menu.
-		@include CLA_THEME_DIRPATH . '/src/class-navigation.php';
+		include CLA_THEME_DIRPATH . '/src/class-navigation.php';
 		$nav = new \CLA_WSOrder\Navigation();
 
 		// Header.
-		@include CLA_THEME_DIRPATH . '/src/class-header.php';
+		include CLA_THEME_DIRPATH . '/src/class-header.php';
 		$nav = new \CLA_WSOrder\Header();
 
-		// Remove profile options.
+		// Remove access to profile options.
 		remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
 
 		if ( ! function_exists( 'cla_remove_unneeded_account_options' ) ) {
@@ -123,10 +123,17 @@ class CLA_WSOrder {
 	}
 
 	public function admin_bar_enable_or_disable() {
-		if (!current_user_can('administrator') && !current_user_can('wso_admin') && !current_user_can('wso_logistics') && !is_admin()) {
-		  show_admin_bar(false);
+		if (
+			current_user_can( 'read' )
+			&& (
+				current_user_can( 'wso_logistics' )
+				|| current_user_can( 'wso_logistics_admin' )
+				|| current_user_can( 'wso_admin' )
+			)
+		) {
+		  show_admin_bar( true );
 		} else {
-			show_admin_bar(true);
+			show_admin_bar( false );
 		}
 	}
 
