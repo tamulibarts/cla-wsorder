@@ -38,8 +38,6 @@ class CLA_WSOrder {
 	 */
 	private function __construct() {
 
-		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
-
 		// Foundation class names and other attributes.
 		include CLA_THEME_DIRPATH . '/src/class-foundation.php';
 		$foundation = new \CLA_WSOrder\Foundation();
@@ -52,40 +50,15 @@ class CLA_WSOrder {
 		include CLA_THEME_DIRPATH . '/src/class-header.php';
 		$nav = new \CLA_WSOrder\Header();
 
+		// Run functions after the theme is loaded.
+		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
+		$this->remove_genesis_features();
+
 		// Remove access to profile options.
 		remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
 
-		if ( ! function_exists( 'cla_remove_unneeded_account_options' ) ) {
-		  /**
-		   * Removes the leftover 'Visual Editor', 'Keyboard Shortcuts' and 'Toolbar' options.
-		   */
-		  function cla_remove_unneeded_account_options( $subject ) {
-		    $subject = preg_replace( '#<h2>Personal Options</h2>.+?/table>#s', '', $subject, 1 );
-		    $subject = preg_replace( '#<h2>About Yourself</h2>.+?/table>#s', '', $subject, 1 );
-		    $subject = preg_replace( '#<h2>Author Archive Settings</h2>.+?/table>#s', '', $subject, 1 );
-		    $subject = preg_replace( '#<h2>Author Archive SEO Settings</h2>.+?/table>#s', '', $subject, 1 );
-		    $subject = preg_replace( '#<h2>Layout Settings</h2>.+?/table>#s', '', $subject, 1 );
-		    $subject = preg_replace( '#<h2>User Permissions</h2>.+?/table>#s', '', $subject, 1 );
-		    $subject = preg_replace( '#<h2>Account Management</h2>.+?/table>#s', '', $subject, 1 );
-		    return $subject;
-		  }
-
-		  function cla_profile_subject_start() {
-		    ob_start( 'cla_remove_unneeded_account_options' );
-		  }
-
-		  function cla_profile_subject_end() {
-		    ob_end_flush();
-		  }
-		}
-		add_action( 'admin_head-profile.php', 'cla_profile_subject_start' );
-		add_action( 'admin_footer-profile.php', 'cla_profile_subject_end' );
-
 		// Home page heading as current program name.
 		add_filter( 'the_title', array ( $this, 'home_title_current_program' ), 10, 2 );
-
-		// Disable the admin bar.
-		add_action('after_setup_theme', array( $this, 'admin_bar_enable_or_disable' ) );
 
 		// Add custom user switch back link.
 		add_action('genesis_after_header', array( $this, 'add_user_switch_back_link' ) );
@@ -96,63 +69,136 @@ class CLA_WSOrder {
 
 	}
 
+	/**
+	 * Remove Genesis features from the child theme.
+	 *
+	 * @return void
+	 */
+	private function remove_genesis_features() {
+
+		add_action( 'after_setup_theme', array( $this, 'after_setup_genesis_remove' ), 11 );
+
+		add_action( 'admin_init', array( $this, 'admin_genesis_remove' ), 11 );
+
+	}
+
+	/**
+	 * Remove Genesis features on after_setup_theme
+	 *
+	 * @return void
+	 */
+	public function after_setup_genesis_remove() {
+
+		// Remove Genesis sidebars.
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
+
+		// Remove theme support.
+		remove_theme_support( 'genesis-archive-layouts' );
+
+	}
+
+	/**
+	 * Remove Genesis features on admin_init
+	 *
+	 * @return void
+	 */
+	public function admin_genesis_remove() {
+
+		// Remove Genesis hooks.
+		remove_action( 'edit_user_profile', 'genesis_user_options_fields' );
+		remove_action( 'edit_user_profile', 'genesis_user_archive_fields' );
+		remove_action( 'edit_user_profile', 'genesis_user_seo_fields' );
+		remove_action( 'edit_user_profile', 'genesis_user_layout_fields' );
+		remove_action( 'show_user_profile', 'genesis_user_options_fields' );
+		remove_action( 'show_user_profile', 'genesis_user_archive_fields' );
+		remove_action( 'show_user_profile', 'genesis_user_seo_fields' );
+		remove_action( 'show_user_profile', 'genesis_user_layout_fields' );
+
+	}
+
+	/**
+	 * Output Genesis site footer content.
+	 *
+	 * @return void
+	 */
 	public function genesis_footer_content() {
+
 		echo '<hr />';
+
 	}
 
+	/**
+	 * Add container class name to Genesis footer element.
+	 *
+	 * @param array $attr The array of attributes.
+	 *
+	 * @return array
+	 */
 	public function genesis_footer_att( $attr ) {
+
 		$attr['class'] .= ' container';
+
 		return $attr;
+
 	}
 
-	public function add_user_switch_back_link(){
+	/**
+	 * Add user switch back link.
+	 *
+	 * @return void
+	 */
+	public function add_user_switch_back_link() {
+
 		if ( method_exists( 'user_switching', 'get_old_user' ) ) {
-	    $old_user = user_switching::get_old_user();
-	    if ( $old_user ) {
-	    	$current_user = wp_get_current_user();
-	    	$display_name = $current_user->display_name;
-	    	$back_url     = esc_url( user_switching::switch_back_url( $old_user ) );
+			$old_user = user_switching::get_old_user();
+			if ( $old_user ) {
+				$current_user = wp_get_current_user();
+				$display_name = $current_user->display_name;
+				$back_url     = esc_url( user_switching::switch_back_url( $old_user ) );
 				$uri          = $_SERVER['REQUEST_URI'];
 				$protocol     = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? "https://" : "http://";
 				$redirect     = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?user_switched=true';
 				$redirect     = urlencode( $redirect );
-	    	$back_name    = esc_html( $old_user->display_name );
-	    	echo wp_kses_post( "<div class=\"alert alert-info\">Impersonating: $display_name. <a href=\"{$back_url}&redirect_to={$redirect}\">Back to $back_name</a></div>" );
-	    }
-		}
-	}
-
-	public function admin_bar_enable_or_disable() {
-		if (
-			current_user_can( 'read' )
-			&& (
-				current_user_can( 'wso_logistics' )
-				|| current_user_can( 'wso_logistics_admin' )
-				|| current_user_can( 'wso_admin' )
-			)
-		) {
-		  show_admin_bar( true );
-		} else {
-			show_admin_bar( false );
-		}
-	}
-
-	public function home_title_current_program( $title, $post_id ) {
-		if ( ! is_admin() ) {
-			$front_page_id = (int) get_option( 'page_on_front' );
-			if ( ! empty( $front_page_id ) && $front_page_id === $post_id ) {
-				$current_program_post  = get_field( 'current_program', 'option' );
-				if ( $current_program_post ) {
-					$current_program_title = $current_program_post->post_title;
-					$title = $current_program_title;
-				}
+				$back_name    = esc_html( $old_user->display_name );
+				echo wp_kses_post( "<div class=\"alert alert-info\">Impersonating: $display_name. <a href=\"{$back_url}&redirect_to={$redirect}\">Back to $back_name</a></div>" );
 			}
 		}
-		return $title;
 	}
 
 	/**
-	 * Add theme support for wide page alignment
+	 * Determine the home page title based on the currently active program.
+	 *
+	 * @param string $title   The current page title.
+	 * @param int    $post_id The home page post ID.
+	 *
+	 * @return string.
+	 */
+	public function home_title_current_program( $title, $post_id ) {
+
+		if ( ! is_admin() ) {
+
+			$front_page_id = (int) get_option( 'page_on_front' );
+
+			if ( ! empty( $front_page_id ) && $front_page_id === $post_id ) {
+
+				$current_program_post  = get_field( 'current_program', 'option' );
+
+				if ( $current_program_post ) {
+
+					$current_program_title = $current_program_post->post_title;
+					$title = $current_program_title;
+
+				}
+			}
+
+		}
+
+		return $title;
+
+	}
+
+	/**
+	 * Modify theme features based on parent theme API.
 	 *
 	 * @since 0.1.0
 	 * @return void
@@ -161,8 +207,8 @@ class CLA_WSOrder {
 
 		// Add theme support.
 		$defaults = array(
-      'height'      => 279,
-      'width'       => 50,
+			'height'      => 279,
+			'width'       => 50,
 			'flex-height' => true,
 			'flex-width'  => true,
 			// 'header-text' => array( 'site-title', 'site-description' ),
@@ -177,7 +223,6 @@ class CLA_WSOrder {
 		unregister_sidebar( 'sidebar' );
 		unregister_sidebar( 'sidebar-alt' );
 		unregister_sidebar( 'header-right' );
-		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
 
 	}
 
