@@ -4,11 +4,14 @@
   "description": "Genesis child theme for the College of Liberal Arts Workstation Ordering Application",
   "main": "functions.php",
   "scripts": {
-    "start": "composer install && npm install && grunt",
-    "checkwp": "npm run configphpcs && npm run checkphp",
-    "configphpcs": "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
-    "checkphp": "vendor/bin/phpcs --standard=WordPress ./*.php ./src ./fields",
-    "fixphp": "vendor/bin/phpcbf --standard=WordPress ./*.php ./src ./fields"
+    "start": "git config core.hooksPath hooks && composer install && npm run configphpcs && npm install && grunt",
+    "checkwp": "./vendor/bin/phpcs --standard=WordPress --ignore=\"*/vendor/*,*/node_modules/*\" --filter=\"gitmodified\" .",
+    "fixwp": "./vendor/bin/phpcbf --standard=WordPress --ignore=\"*/vendor/*,*/node_modules/*\" --filter=\"gitmodified\" .",
+    "configphpcs": "./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+    "windows-start": "git config core.hooksPath hooks && composer install && npm run windows-configphpcs && npm install",
+    "windows-checkwp": "php ./vendor/bin/phpcs --ignore=*/vendor/*,*/node_modules/* --standard=WordPress .",
+    "windows-fixwp": "php ./vendor/bin/phpcbf --ignore=*/vendor/*,*/node_modules/* --standard=WordPress .",
+    "windows-configphpcs": "php ./vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs"
   },
   "author": "Zachary Watkins",
   "license": "GPL-2.0+",
