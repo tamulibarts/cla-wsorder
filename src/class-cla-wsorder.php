@@ -67,6 +67,26 @@ class CLA_WSOrder {
 		add_action( 'genesis_footer', array( $this, 'genesis_footer_content' ), 5 );
 		add_filter( 'genesis_attr_site-footer', array( $this, 'genesis_footer_att' ) );
 
+		// Disable the admin bar.
+		add_action('after_setup_theme', array( $this, 'admin_bar_enable_or_disable' ) );
+
+	}
+
+	/**
+	 * Disable the admin bar for users who cannot access the admin interface.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function admin_bar_enable_or_disable() {
+		if (
+			current_user_can( 'read' )
+		) {
+			show_admin_bar( true );
+		} else {
+			show_admin_bar( false );
+		}
 	}
 
 	/**
