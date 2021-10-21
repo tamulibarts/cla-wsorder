@@ -1,6 +1,6 @@
 {
   "name": "cla-wsorder",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Genesis child theme for the College of Liberal Arts Workstation Ordering Application",
   "main": "functions.php",
   "scripts": {
