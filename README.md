@@ -2,7 +2,7 @@
 
 Web Team > Information Technology > Dean's Office > College of Liberal Arts > Texas A&M University > Texas A&M University System
 
-A GNU GPL 2.0 (or later) WordPress Plugin to facilitate product ordering within a robust, multi-role return / approve workflow using team-based settings.
+A GNU GPL 2.0 (or later) WordPress Theme to facilitate product ordering within a robust, multi-role return / approve workflow using team-based settings.
 
 ## Features
 
