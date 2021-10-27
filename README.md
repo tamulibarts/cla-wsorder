@@ -1,6 +1,6 @@
 # Workstation Ordering Application for WordPress
 
-Web Team > Information Technology > Dean's Office > Texas A&M University College of Liberal Arts
+Web Team > Information Technology > Dean's Office > College of Liberal Arts > Texas A&M University > Texas A&M University System
 
 A GNU GPL 2.0 (or later) WordPress Plugin to facilitate product ordering within a robust, multi-role return / approve workflow using team-based settings.
 
@@ -96,7 +96,7 @@ On two different models of Dell Windows 10 machines (Inspiron and Latitude) a Wi
 
 1. The WordPress plugin was programmed by Zachary Watkins <zwatkins2@tamu.edu> <https://github.com/zachwatkins>.
 2. The WordPress theme was programmed by Zachary Watkins.
-3. The business process workflow and a portion of the UI specifications were designed by Pamela Luckenbill <luckenbill@tamu.edu>.
+3. The business process workflow and a portion of the UI specifications were designed by Pamela Luckenbill.
 4. The original application used very different technology, was programmed by Joseph Rafferty <jrafferty@tamu.edu>, and was authored by Joseph Rafferty and Pamela Luckenbill: [https://github.tamu.edu/liberalarts-web/workstation-order](https://github.tamu.edu/liberalarts-web/workstation-order).
 5. The majority of the workflow requirements for this version were preserved from the original application. However, the product, bundle, program, and department data creation and management interface is superseded by this application as it is provided by WordPress Core.
 6. The visual design at the start of the project was copied from the original application, and then the icons were replaced.
